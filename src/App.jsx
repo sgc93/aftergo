@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CityList from "./components/CityList/CityList";
+import cities from "./data/cities";
 import Homepage from "./pages/HomePage/Homepage";
 import Login from "./pages/Login/Login";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
@@ -7,6 +10,9 @@ import Product from "./pages/PricingProduct/Product";
 import AppLayout from "./pages/SavingPage/AppLayout";
 
 export default function App() {
+	const [cityList] = useState(cities);
+	const [isLoading] = useState(false);
+
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -15,8 +21,14 @@ export default function App() {
 				<Route path="pricing" element={<Pricing />} />
 				<Route path="login" element={<Login />} />
 				<Route path="app" element={<AppLayout />}>
-					<Route index element={<p>Visited Cities</p>} />
-					<Route path="cities" element={<p>Visited Cities</p>} />
+					<Route
+						index
+						element={<CityList cityList={cityList} isLoading={isLoading} />}
+					/>
+					<Route
+						path="cities"
+						element={<CityList cityList={cityList} isLoading={isLoading} />}
+					/>
 					<Route path="countries" element={<p>Visited Countries</p>} />
 				</Route>
 				<Route path="*" element={<PageNotFound />} />

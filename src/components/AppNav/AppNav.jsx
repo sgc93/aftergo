@@ -1,9 +1,4 @@
-import { NavLink } from "react-router-dom";
-
+import styles from "./AppNav.module.css";
 export default function AppNav() {
-	return (
-		<div>
-			<NavLink to="/">Home</NavLink>
-		</div>
-	);
+	return <div className={styles.nav}>AppNavigation</div>;
 }

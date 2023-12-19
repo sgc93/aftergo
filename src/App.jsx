@@ -15,8 +15,9 @@ export default function App() {
 				<Route path="pricing" element={<Pricing />} />
 				<Route path="login" element={<Login />} />
 				<Route path="app" element={<AppLayout />}>
+					<Route index element={<p>Visited Cities</p>} />
 					<Route path="cities" element={<p>Visited Cities</p>} />
-					<Route path="countries" element={<p>Visited Countires</p>} />
+					<Route path="countries" element={<p>Visited Countries</p>} />
 				</Route>
 				<Route path="*" element={<PageNotFound />} />
 			</Routes>

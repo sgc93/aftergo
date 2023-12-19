@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CityList from "./components/CityList/CityList";
+import CountryList from "./components/CountyList/CountryList";
 import cities from "./data/cities";
 import Homepage from "./pages/HomePage/Homepage";
 import Login from "./pages/Login/Login";
@@ -29,7 +30,10 @@ export default function App() {
 						path="cities"
 						element={<CityList cityList={cityList} isLoading={isLoading} />}
 					/>
-					<Route path="countries" element={<p>Visited Countries</p>} />
+					<Route
+						path="countries"
+						element={<CountryList cityList={cityList} isLoading={isLoading} />}
+					/>
 				</Route>
 				<Route path="*" element={<PageNotFound />} />
 			</Routes>

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import City from "./components/City/City";
 import CityList from "./components/CityList/CityList";
 import CountryList from "./components/CountyList/CountryList";
+import Form from "./components/Form/Form";
 import cities from "./data/cities";
 import Homepage from "./pages/HomePage/Homepage";
 import Login from "./pages/Login/Login";
@@ -36,6 +37,7 @@ export default function App() {
 						path="countries"
 						element={<CountryList cityList={cityList} isLoading={isLoading} />}
 					/>
+					<Route path="form" element={<Form />} />
 				</Route>
 				<Route path="*" element={<PageNotFound />} />
 			</Routes>

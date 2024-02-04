@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCities } from "../../hooks/useCities";
+import BackButton from "../BackButton/BackButton";
 import Spinner from "../Spinner/Spinner";
 import styles from "./City.module.css";
 const formatDate = (date) =>
@@ -54,6 +55,9 @@ function City() {
 					>
 						Check out {cityName} on Wikipedia &rarr;
 					</a>
+				</div>
+				<div>
+					<BackButton />
 				</div>
 			</div>
 		</>

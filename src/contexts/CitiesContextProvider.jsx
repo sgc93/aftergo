@@ -6,7 +6,9 @@ function CitiesContextProvider({ children }) {
 	const [cityList, setCityList] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentCity, setCurrentCity] = useState({});
-	const [cityPosition] = useState([11.596431998275062, 37.400317557806964]);
+	const [cityPosition, setCityPosition] = useState([
+		11.596431998275062, 37.400317557806964,
+	]);
 
 	useEffect(() => {
 		async function fetchCities() {
@@ -46,6 +48,7 @@ function CitiesContextProvider({ children }) {
 				setCurrentCity,
 				getCity,
 				cityPosition,
+				setCityPosition,
 			}}
 		>
 			{children}

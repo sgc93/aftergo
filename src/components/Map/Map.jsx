@@ -1,19 +1,33 @@
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+	MapContainer,
+	Marker,
+	Popup,
+	TileLayer,
+	useMap,
+	useMapEvents,
+} from "react-leaflet";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useCities } from "../../hooks/useCities";
 import styles from "./Map.module.css";
 export default function Map() {
-	const { cityList, cityPosition } = useCities();
-	const navigateTo = useNavigate();
-	// const [searchParams] = useSearchParams();
+	const { cityList } = useCities();
+	const [cityPosition, setCityPosition] = useState([
+		11.596431998275062, 37.400317557806964,
+	]);
+	const [searchParams] = useSearchParams();
 
-	// const lat = searchParams.get("lat");
-	// const lng = searchParams.get("lng");
+	const mapLat = searchParams.get("lat");
+	const mapLng = searchParams.get("lng");
+
+	useEffect(() => {
+		if (mapLat && mapLng) setCityPosition([mapLat, mapLng]);
+	}, [mapLat, mapLng]);
 
 	// const position = [11.596431998275062, 37.400317557806964];
 
 	return (
-		<div className={styles.mapContainer} onClick={() => navigateTo("form")}>
+		<div className={styles.mapContainer}>
 			<MapContainer
 				center={cityPosition}
 				zoom={13}
@@ -37,7 +51,24 @@ export default function Map() {
 						</Marker>
 					);
 				})}
+				<ChangeMapCenter position={cityPosition} />
+				<DetectMapInteraction />
 			</MapContainer>
 		</div>
 	);
+}
+
+function ChangeMapCenter({ position }) {
+	const view = useMap();
+	view.setView(position);
+	return null;
+}
+
+function DetectMapInteraction() {
+	const navigateTo = useNavigate();
+	useMapEvents({
+		click: (e) => {
+			navigateTo(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
+		},
+	});
 }

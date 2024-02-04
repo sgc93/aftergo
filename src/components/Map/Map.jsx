@@ -8,10 +8,8 @@ import {
 	useMapEvents,
 } from "react-leaflet";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useCities } from "../../hooks/useCities";
 import styles from "./Map.module.css";
 export default function Map() {
-	const { cityList } = useCities();
 	const [cityPosition, setCityPosition] = useState([
 		11.596431998275062, 37.400317557806964,
 	]);

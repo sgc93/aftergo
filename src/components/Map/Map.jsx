@@ -31,6 +31,10 @@ export default function Map() {
 		if (mapLat && mapLng) setCityPosition([mapLat, mapLng]);
 	}, [mapLat, mapLng]);
 
+	useEffect(() => {
+		if (currentPos) setCityPosition(currentPos);
+	}, [currentPos]);
+
 	// const position = [11.596431998275062, 37.400317557806964];
 
 	return (

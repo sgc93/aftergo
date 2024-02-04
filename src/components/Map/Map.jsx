@@ -39,9 +39,11 @@ export default function Map() {
 
 	return (
 		<div className={styles.mapContainer}>
-			<Button type={"position"} onClick={getPosition}>
-				{isLoadingPosition ? "Loading..." : "Use Current Position"}
-			</Button>
+			{!currentPos && (
+				<Button type={"position"} onClick={getPosition}>
+					{isLoadingPosition ? "Loading..." : "Use Current Position"}
+				</Button>
+			)}
 			<MapContainer
 				center={cityPosition}
 				zoom={13}

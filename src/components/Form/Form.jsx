@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useLocationCoords } from "../../hooks/useLocationCoords";
 import BackButton from "../BackButton/BackButton";
 import Button from "../Button/Button";
@@ -21,6 +23,7 @@ const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
 function Form() {
 	const [cityName, setCityName] = useState("");
+	const [country, setCountry] = useState("");
 	const [emoji, setEmoji] = useState("");
 	const [date, setDate] = useState(new Date());
 	const [notes, setNotes] = useState("");
@@ -44,6 +47,7 @@ function Form() {
 					);
 				setCityName(data.locality || data.city || "");
 				setEmoji(data.countryCode);
+				setCountry(data.countryName);
 			} catch (error) {
 				setReversingError(error.message);
 			} finally {
@@ -52,6 +56,23 @@ function Form() {
 		}
 		reverseGeoLocation();
 	}, [lat, lng]);
+
+	function handleSubmitting(e) {
+		e.preventDefault();
+
+		const newVisitedCity = {
+			cityName: cityName,
+			country: country,
+			emoji: emoji,
+			date: date,
+			notes: notes,
+			position: {
+				lat: lat,
+				lng: lng,
+			},
+		};
+		console.log(newVisitedCity);
+	}
 
 	if (isReversingLoading) return <Spinner />;
 	if (!lat && !lng)
@@ -65,7 +86,7 @@ function Form() {
 	if (reversingError) return <Message message={reversingError} />;
 
 	return (
-		<form className={styles.form}>
+		<form className={styles.form} onSubmit={handleSubmitting}>
 			<div className={styles.row}>
 				<label htmlFor="cityName">City name</label>
 				<input
@@ -78,10 +99,11 @@ function Form() {
 
 			<div className={styles.row}>
 				<label htmlFor="date">When did you go to {cityName}?</label>
-				<input
+				<DatePicker
 					id="date"
-					onChange={(e) => setDate(e.target.value)}
-					value={date}
+					onChange={(date) => setDate(date)}
+					selected={date}
+					dateFormat={"dd/MM/yyyy"}
 				/>
 			</div>
 

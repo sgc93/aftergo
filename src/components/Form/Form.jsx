@@ -29,6 +29,7 @@ function Form() {
 	const { lat, lng } = useLocationCoords();
 
 	useEffect(() => {
+		if (!lat && !lng) return;
 		async function reverseGeoLocation() {
 			try {
 				setIsReversingLoading(true);
@@ -53,6 +54,14 @@ function Form() {
 	}, [lat, lng]);
 
 	if (isReversingLoading) return <Spinner />;
+	if (!lat && !lng)
+		return (
+			<Message
+				message={
+					"Start by Searching the place you have visited and Clicking on it."
+				}
+			/>
+		);
 	if (reversingError) return <Message message={reversingError} />;
 
 	return (

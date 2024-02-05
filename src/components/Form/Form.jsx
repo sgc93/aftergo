@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 import { useCities } from "../../hooks/useCities";
 import { useLocationCoords } from "../../hooks/useLocationCoords";
 import BackButton from "../BackButton/BackButton";
@@ -32,6 +33,7 @@ function Form() {
 	const [notes, setNotes] = useState("");
 	const [isReversingLoading, setIsReversingLoading] = useState(false);
 	const [reversingError, setReversingError] = useState("");
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!lat && !lng) return;
@@ -59,7 +61,7 @@ function Form() {
 		reverseGeoLocation();
 	}, [lat, lng]);
 
-	function handleSubmitting(e) {
+	async function handleSubmitting(e) {
 		e.preventDefault();
 
 		const newVisitedCity = {
@@ -73,7 +75,8 @@ function Form() {
 				lng: lng,
 			},
 		};
-		addNewCity(newVisitedCity);
+		await addNewCity(newVisitedCity);
+		navigate("/app/cities");
 	}
 
 	if (isReversingLoading) return <Spinner />;

@@ -7,9 +7,10 @@ import {
 	useMap,
 	useMapEvents,
 } from "react-leaflet";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCities } from "../../hooks/useCities";
 import { useGeolocation } from "../../hooks/useGeolocation";
+import { useLocationCoords } from "../../hooks/useLocationCoords";
 import Button from "../Button/Button";
 import styles from "./Map.module.css";
 export default function Map() {
@@ -17,15 +18,12 @@ export default function Map() {
 		11.596431998275062, 37.400317557806964,
 	]);
 	const { cityList } = useCities();
-	const [searchParams] = useSearchParams();
+	const { lat: mapLat, lng: mapLng } = useLocationCoords();
 	const {
 		isLoadingPosition,
 		position: currentPos,
 		getPosition,
 	} = useGeolocation();
-
-	const mapLat = searchParams.get("lat");
-	const mapLng = searchParams.get("lng");
 
 	useEffect(() => {
 		if (mapLat && mapLng) setCityPosition([mapLat, mapLng]);

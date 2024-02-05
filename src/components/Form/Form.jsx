@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useCities } from "../../hooks/useCities";
 import { useLocationCoords } from "../../hooks/useLocationCoords";
 import BackButton from "../BackButton/BackButton";
 import Button from "../Button/Button";
@@ -22,6 +23,8 @@ export function convertToEmoji(countryCode) {
 const BASE_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
 function Form() {
+	const { lat, lng } = useLocationCoords();
+	const { addNewCity } = useCities();
 	const [cityName, setCityName] = useState("");
 	const [country, setCountry] = useState("");
 	const [emoji, setEmoji] = useState("");
@@ -29,7 +32,6 @@ function Form() {
 	const [notes, setNotes] = useState("");
 	const [isReversingLoading, setIsReversingLoading] = useState(false);
 	const [reversingError, setReversingError] = useState("");
-	const { lat, lng } = useLocationCoords();
 
 	useEffect(() => {
 		if (!lat && !lng) return;
@@ -71,7 +73,7 @@ function Form() {
 				lng: lng,
 			},
 		};
-		console.log(newVisitedCity);
+		addNewCity(newVisitedCity);
 	}
 
 	if (isReversingLoading) return <Spinner />;

@@ -35,6 +35,30 @@
         "lat": "7.345441930573522",
         "lng": "37.86849975585938"
       }
+    },
+    {
+      "id": "b633",
+      "cityName": "Bahir Dar City, Amhara, Ethiopia",
+      "country": "Ethiopia",
+      "emoji": "ET",
+      "date": "2024-02-06T07:13:40.882Z",
+      "notes": "THE HOTEST HEAVEN",
+      "position": {
+        "lat": "11.591032649868541",
+        "lng": "37.385787963867195"
+      }
+    },
+    {
+      "id": "d2b6",
+      "cityName": "Gonder",
+      "country": "Ethiopia",
+      "emoji": "ET",
+      "date": "2024-02-06T07:14:51.930Z",
+      "notes": "historical heaven",
+      "position": {
+        "lat": "12.618897304044024",
+        "lng": "37.49633789062501"
+      }
     }
   ]
 }
